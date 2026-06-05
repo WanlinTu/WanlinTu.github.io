@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Name — ML Engineer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-name">Your Name</span>
+    <div class="nav-links">
+      <a href="#project">Project</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="label">ML Engineer · NLP × Quant Finance</p>
+    <h1>Turning SEC filings<br/>into alpha signals.</h1>
+    <p class="sub">I build end-to-end LLM pipelines that extract meaning from financial documents — fine-tuned, RL-aligned, and backtested.</p>
+    <div class="hero-btns">
+      <a href="#project" class="btn-primary">See the project</a>
+      <a href="mailto:you@email.com" class="btn-secondary">Get in touch</a>
+    </div>
+  </section>
+
+  <!-- PROJECT -->
+  <section id="project">
+    <p class="label">Featured project</p>
+    <h2>Reasoning-Augmented Factor Extraction</h2>
+    <p class="project-sub">AllianceBernstein × Vanderbilt DSI · 2026</p>
+
+    <div class="cards">
+      <div class="card">
+        <span class="card-num">2,441</span>
+        <span class="card-desc">SEC filings processed<br/>(10-K + 10-Q, 2015–2025)</span>
+      </div>
+      <div class="card">
+        <span class="card-num">2.02</span>
+        <span class="card-desc">HAC-valid Information Ratio<br/>(out-of-sample)</span>
+      </div>
+      <div class="card">
+        <span class="card-num">11/12</span>
+        <span class="card-desc">OOS cells meet or exceed<br/>in-sample IR</span>
+      </div>
+    </div>
+
+    <div class="pipeline">
+      <div class="step">
+        <span class="step-num">01</span>
+        <strong>Factor extraction</strong>
+        <p>60-question taxonomy over MD&A and Risk Factors using DeepSeek-R1-14B. 67,741 scored factors across 2,441 filings.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <strong>SFT fine-tuning</strong>
+        <p>QLoRA on 5,217 Claude Opus-annotated samples. Tail F1 doubled vs base model.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <strong>RL alignment</strong>
+        <p>GRPO with composite ordinal + anti-neutral reward. L/S spread: 2.78% → 8.09%.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <strong>Backtesting</strong>
+        <p>48-cell event-study grid across 4 strategies × 4 variants × 3 horizons. Pre-registered protocol.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="label">Skills</p>
+    <h2>What I work with</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>LLMs & NLP</h4>
+        <ul>
+          <li>SFT / QLoRA fine-tuning</li>
+          <li>GRPO RL alignment</li>
+          <li>Multi-agent orchestration</li>
+          <li>RAG pipeline design</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Quant Finance</h4>
+        <ul>
+          <li>SEC EDGAR processing</li>
+          <li>Factor & sentiment extraction</li>
+          <li>Event-study backtesting</li>
+          <li>HAC / Newey-West statistics</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Engineering</h4>
+        <ul>
+          <li>Python, PyTorch, HuggingFace</li>
+          <li>vLLM serving</li>
+          <li>iXBRL / HTML parsing</li>
+          <li>Git, Docker</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="label">Contact</p>
+    <h2>Let's talk.</h2>
+    <p>Open to quant ML roles, consulting, and signal research collaborations.</p>
+    <div class="contact-links">
+      <a href="mailto:you@email.com">you@email.com</a>
+      <a href="https://linkedin.com/in/yourname" target="_blank">LinkedIn</a>
+      <a href="https://github.com/yourname" target="_blank">GitHub</a>
+    </div>
+  </section>
+
+</body>
+</html>
