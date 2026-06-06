@@ -1,129 +1,1801 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Maggie Tu — ML Engineer</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <meta name="description" content="Maggie Tu — Data Scientist. I find the signal in what companies say — and what they're careful not to."/>
+  <title>Maggie Tu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:#0c0c0d;color:#f0ede8;font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+
+/* ── CSS VARS ── */
+:root{
+  --bg:#0c0c0d;
+  --bg2:#111114;
+  --bg3:#16161a;
+  --surface:#1a1a1f;
+  --surface2:#1f1f26;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);
+  --text:#f0ede8;
+  --text2:#a09d98;
+  --text3:#5a5855;
+  --gold:#d4a843;
+  --gold2:#f0c060;
+  --gold-dim:rgba(212,168,67,0.12);
+  --gold-border:rgba(212,168,67,0.25);
+  --green:#22c55e;
+  --green-dim:rgba(34,197,94,0.1);
+  --blue:#6366f1;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --r:8px;--r2:12px;--r3:16px;
+  --sh:0 0 0 1px rgba(255,255,255,0.06),0 4px 24px rgba(0,0,0,0.4);
+  --sh2:0 0 0 1px rgba(255,255,255,0.08),0 8px 48px rgba(0,0,0,0.6);
+}
+
+/* ── UTILS ── */
+.mono{font-family:var(--mono)}
+.serif{font-family:var(--serif)}
+.fade-up{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.in{opacity:1;transform:none}
+.tag{display:inline-block;background:rgba(255,255,255,0.06);border:1px solid var(--border2);border-radius:100px;padding:.2rem .65rem;font-size:.7rem;color:var(--text2);font-family:var(--mono)}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;width:100%;z-index:300;height:58px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 5%;
+  background:rgba(12,12,13,0.85);backdrop-filter:blur(24px) saturate(1.5);
+  border-bottom:1px solid transparent;transition:border-color .3s
+}
+nav.s{border-bottom-color:var(--border)}
+.nav-logo{font-family:var(--serif);font-size:1.05rem;font-style:italic;color:var(--text);letter-spacing:-.01em}
+.nav-r{display:flex;align-items:center;gap:1.75rem}
+.nav-r a{font-size:.82rem;color:var(--text2);transition:color .2s;font-weight:400}
+.nav-r a:hover{color:var(--text)}
+.nav-btn{
+  background:var(--gold);color:#0c0c0d !important;
+  padding:.4rem 1.05rem;border-radius:6px;
+  font-size:.78rem !important;font-weight:600 !important;
+  transition:opacity .2s !important;letter-spacing:.01em
+}
+.nav-btn:hover{opacity:.85 !important}
+
+/* ── HERO ── */
+/* #hero base: overridden by hero-v7 below */
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.72rem;color:var(--gold);font-family:var(--mono);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.75rem
+}
+.hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--gold)}
+.hero-h1{
+  font-family:var(--serif);
+  font-size:clamp(2.8rem,4.5vw,4.4rem);
+  line-height:1.06;letter-spacing:-.03em;
+  color:var(--text);margin-bottom:1.5rem;font-weight:400
+}
+.hero-h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{
+  font-size:1rem;color:var(--text2);line-height:1.8;
+  max-width:480px;font-weight:300;margin-bottom:2.25rem
+}
+.hero-chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:2.5rem}
+.hero-actions{display:flex;gap:.75rem;flex-wrap:wrap}
+.btn-solid{
+  background:var(--text);color:#0c0c0d;padding:.7rem 1.5rem;
+  border-radius:7px;font-size:.85rem;font-weight:600;
+  transition:opacity .2s,transform .2s;display:inline-flex;align-items:center;gap:.45rem
+}
+.btn-solid:hover{opacity:.88;transform:translateY(-1px)}
+.btn-ghost{
+  border:1px solid var(--border2);color:var(--text2);padding:.7rem 1.1rem;
+  border-radius:7px;font-size:.82rem;transition:border-color .2s,color .2s,background .2s;
+  display:inline-flex;align-items:center;gap:.4rem
+}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.25);color:var(--text);background:rgba(255,255,255,0.04)}
+.btn-icon{padding:.7rem 1rem;gap:.45rem}
+
+/* hero photo */
+.hero-photo-col{position:relative;display:flex;flex-direction:column;gap:1rem}
+.hero-img-wrap{position:relative}
+.hero-img-wrap img{
+  width:100%;height:440px;object-fit:cover;
+  border-radius:16px;
+  box-shadow:0 0 0 1px rgba(255,255,255,0.08),0 24px 80px rgba(0,0,0,0.7)
+}
+.hero-float-card{
+  position:absolute;bottom:-14px;left:-16px;
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:var(--r);padding:.7rem 1rem;
+  box-shadow:var(--sh);display:flex;align-items:center;gap:.6rem
+}
+.hfc-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--green);
+  animation:pulse 2s infinite
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(34,197,94,0.5)}
+  70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}
+  100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
+}
+.hfc-text{font-size:.72rem;color:var(--text2);font-family:var(--mono);white-space:nowrap}
+.hero-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.hstat{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:.85rem 1rem;
+  transition:border-color .2s
+}
+.hstat:hover{border-color:var(--border2)}
+.hstat-ctx{
+  font-family:var(--mono);font-size:.58rem;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--gold);margin-bottom:.2rem
+}
+.hstat-n{
+  font-family:var(--serif);font-size:1.5rem;color:var(--text);
+  line-height:1;font-weight:400
+}
+.hstat-l{font-size:.68rem;color:var(--text3);margin-top:.2rem;line-height:1.35}
+
+/* ── DIVIDER ── */
+hr.div{border:none;border-top:1px solid var(--border);margin:0}
+
+/* ── SECTION SHELL ── */
+.section{max-width:1200px;margin:0 auto;padding:5.5rem 5%}
+.sec-label{
+  font-family:var(--mono);font-size:.65rem;text-transform:uppercase;
+  letter-spacing:.16em;color:var(--gold);margin-bottom:.75rem
+}
+.sec-title{
+  font-family:var(--serif);font-size:clamp(2.2rem,3.2vw,3rem);
+  font-weight:400;letter-spacing:-.025em;line-height:1.1;
+  color:var(--text);margin-bottom:.85rem
+}
+.sec-sub{
+  font-size:.95rem;color:var(--text2);line-height:1.8;
+  font-weight:300;max-width:560px;margin-bottom:3rem
+}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.about-body p{
+  font-size:.95rem;color:var(--text2);line-height:1.85;
+  font-weight:300;margin-bottom:1.1rem
+}
+.about-body p strong{color:var(--text);font-weight:500}
+.about-facts{display:flex;flex-direction:column;gap:.6rem}
+.af{
+  display:flex;align-items:flex-start;gap:.9rem;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:.9rem 1rem;transition:border-color .2s
+}
+.af:hover{border-color:var(--border2)}
+.af-icon{
+  width:32px;height:32px;background:var(--bg3);
+  border:1px solid var(--border);border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;flex-shrink:0
+}
+.af-title{font-size:.84rem;font-weight:500;color:var(--text)}
+.af-sub{font-size:.73rem;color:var(--text3);margin-top:.15rem}
+
+/* ── FLAGSHIP ── */
+.flagship{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(255,255,255,0.04),0 20px 80px rgba(0,0,0,0.5);
+  margin-bottom:2rem
+}
+.fl-header{
+  padding:3rem 3.5rem 2.5rem;border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:flex-start;gap:3rem
+}
+.fl-tag{
+  font-family:var(--mono);font-size:.65rem;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--gold);background:var(--gold-dim);
+  border:1px solid var(--gold-border);border-radius:4px;
+  padding:.2rem .6rem;display:inline-block;margin-bottom:.9rem
+}
+.fl-h2{
+  font-family:var(--serif);font-size:2.1rem;font-weight:400;
+  letter-spacing:-.025em;line-height:1.12;color:var(--text);margin-bottom:.65rem
+}
+.fl-desc{
+  font-size:.9rem;color:var(--text2);line-height:1.75;
+  font-weight:300;max-width:440px
+}
+.fl-kpis{display:flex;flex-direction:column;gap:.6rem;flex-shrink:0;min-width:190px}
+.kpi{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);padding:.9rem 1.25rem;text-align:right;
+  transition:border-color .2s
+}
+.kpi:hover{border-color:var(--border2)}
+.kpi-n{
+  font-family:var(--serif);font-size:1.75rem;color:var(--gold);
+  line-height:1;font-weight:400
+}
+.kpi-l{font-size:.65rem;color:var(--text3);margin-top:.2rem;font-family:var(--mono)}
+
+/* flagship tabs */
+.fl-tabs{
+  display:flex;gap:0;border-bottom:1px solid var(--border);
+  padding:0 3.5rem;background:var(--bg3);overflow-x:auto
+}
+.fl-tab{
+  font-size:.78rem;padding:.8rem 1.1rem;color:var(--text3);
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:color .2s,border-color .2s;white-space:nowrap;font-weight:400
+}
+.fl-tab:hover{color:var(--text2)}
+.fl-tab.a{color:var(--text);border-bottom-color:var(--gold);font-weight:500}
+
+.fl-panel{display:none;padding:3rem 3.5rem}
+.fl-panel.a{display:block}
+
+/* pipeline diagram */
+.pipeline-visual{
+  display:flex;align-items:stretch;gap:0;
+  margin-bottom:2rem;overflow-x:auto
+}
+.pipe-step{
+  flex:1;min-width:130px;background:var(--bg3);
+  border:1px solid var(--border);padding:1.1rem .9rem;
+}
+.pipe-step:first-child{border-radius:var(--r) 0 0 var(--r)}
+.pipe-step:last-child{border-radius:0 var(--r) var(--r) 0}
+.pipe-step+.pipe-step{border-left:none}
+.pipe-num{
+  font-family:var(--mono);font-size:.6rem;color:var(--text3);
+  margin-bottom:.45rem;text-transform:uppercase;letter-spacing:.08em
+}
+.pipe-name{font-size:.83rem;font-weight:500;color:var(--text);margin-bottom:.3rem}
+.pipe-detail{font-size:.72rem;color:var(--text2);line-height:1.5;font-weight:300}
+.pipe-arrow{
+  display:flex;align-items:center;padding:0;
+  background:transparent;color:var(--text3);font-size:.9rem;flex-shrink:0
+}
+
+/* example box */
+.example-box{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r2);overflow:hidden;margin-bottom:1.5rem
+}
+.ex-label{
+  font-family:var(--mono);font-size:.62rem;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--text3);padding:.6rem 1.25rem;
+  border-bottom:1px solid var(--border);background:var(--bg3)
+}
+.ex-body{padding:1.25rem}
+.ex-text{
+  font-size:.84rem;color:var(--text2);line-height:1.7;
+  font-weight:300;font-style:italic;margin-bottom:1.25rem;
+  padding:.9rem 1rem;background:var(--bg3);
+  border:1px solid var(--border);border-radius:8px;
+  border-left:2px solid var(--gold-border)
+}
+.ex-factors{display:flex;flex-direction:column;gap:.45rem}
+.ex-factor{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.55rem .85rem;background:var(--surface);
+  border:1px solid var(--border);border-radius:7px
+}
+.ex-factor-cat{
+  font-family:var(--mono);font-size:.65rem;color:var(--text3);
+  min-width:140px;text-transform:uppercase;letter-spacing:.06em
+}
+.ex-factor-val{font-size:.8rem;color:var(--text2);flex:1;font-weight:300}
+.sent-badge{
+  font-family:var(--mono);font-size:.65rem;
+  padding:.2rem .5rem;border-radius:4px;font-weight:500
+}
+.sent-vn{background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.25)}
+.sent-n{background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)}
+.sent-neu{background:rgba(255,255,255,0.06);color:var(--text3);border:1px solid var(--border)}
+.sent-p{background:rgba(34,197,94,0.12);color:#4ade80;border:1px solid rgba(34,197,94,0.2)}
+.sent-vp{background:rgba(34,197,94,0.2);color:#22c55e;border:1px solid rgba(34,197,94,0.3)}
+
+/* RL diagram */
+.rl-flow{
+  display:grid;grid-template-columns:1fr auto 1fr auto 1fr;
+  align-items:center;gap:.75rem;margin-bottom:2rem
+}
+.rl-box{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);padding:1rem 1.25rem;text-align:center
+}
+.rl-box-label{
+  font-family:var(--mono);font-size:.62rem;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--text3);margin-bottom:.4rem
+}
+.rl-box-val{font-size:.85rem;font-weight:500;color:var(--text)}
+.rl-arrow{color:var(--text3);font-size:1rem;text-align:center}
+.rl-reward{
+  background:var(--gold-dim);border:1px solid var(--gold-border);
+  border-radius:var(--r);padding:1rem;margin-bottom:1.5rem
+}
+.rl-reward-label{
+  font-family:var(--mono);font-size:.62rem;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--gold);margin-bottom:.75rem
+}
+.rl-reward-items{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+.rri{
+  background:rgba(255,255,255,0.04);border:1px solid var(--gold-border);
+  border-radius:8px;padding:.75rem;text-align:center
+}
+.rri-label{font-size:.7rem;color:var(--gold);font-family:var(--mono);margin-bottom:.3rem}
+.rri-val{font-size:.8rem;color:var(--text2);font-weight:300;line-height:1.4}
+
+/* bar chart */
+.bar-chart{display:flex;flex-direction:column;gap:.85rem;margin-bottom:1.5rem}
+.bar-row{display:flex;align-items:center;gap:1rem}
+.bar-lbl{
+  font-family:var(--mono);font-size:.7rem;color:var(--text2);
+  min-width:160px;text-align:right
+}
+.bar-track{
+  flex:1;height:28px;background:var(--bg3);
+  border-radius:4px;overflow:hidden;border:1px solid var(--border)
+}
+.bar-fill{
+  height:100%;border-radius:3px;width:0%;
+  transition:width 1.1s cubic-bezier(.16,1,.3,1);
+  display:flex;align-items:center;justify-content:flex-end;padding-right:10px
+}
+.bf1{background:rgba(212,168,67,0.45)}
+.bf2{background:rgba(212,168,67,0.7)}
+.bf3{background:var(--gold)}
+.bar-val{font-family:var(--mono);font-size:.68rem;color:#0c0c0d;font-weight:600}
+.bar-sfx{font-family:var(--mono);font-size:.68rem;color:var(--text3);min-width:80px}
+
+/* OOS grid */
+.oos-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.oos-c{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.1rem;text-align:center;
+  transition:border-color .2s
+}
+.oos-c.hi{border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.05)}
+.oos-num{font-family:var(--serif);font-size:2rem;color:var(--text);line-height:1}
+.oos-c.hi .oos-num{color:var(--green)}
+.oos-lbl{font-size:.7rem;color:var(--text3);margin-top:.3rem;line-height:1.4}
+
+/* findings */
+.findings-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.finding{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.1rem 1.25rem
+}
+.finding-num{
+  font-family:var(--serif);font-size:1.25rem;
+  color:var(--gold);margin-bottom:.35rem
+}
+.finding-text{font-size:.82rem;color:var(--text2);line-height:1.6;font-weight:300}
+
+/* insight callout */
+.insight{
+  background:var(--gold-dim);border:1px solid var(--gold-border);
+  border-radius:var(--r);padding:1rem 1.25rem;
+  font-size:.84rem;color:rgba(240,192,96,0.85);line-height:1.65
+}
+.insight strong{color:var(--gold2)}
+
+/* lessons */
+.lessons{display:flex;flex-direction:column;gap:.65rem}
+.lesson{
+  display:flex;gap:1rem;align-items:flex-start;
+  padding:.9rem 1rem;background:var(--bg3);
+  border:1px solid var(--border);border-radius:var(--r)
+}
+.lesson-n{
+  font-family:var(--mono);font-size:.65rem;
+  color:var(--text3);min-width:22px;padding-top:.1rem
+}
+.lesson-text{font-size:.84rem;color:var(--text2);line-height:1.6;font-weight:300}
+.lesson-text strong{color:var(--text);font-weight:500}
+
+/* ── PROJECT GRID ── */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.proj-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r2);padding:1.75rem;
+  display:flex;flex-direction:column;gap:.9rem;
+  transition:border-color .25s,box-shadow .25s,transform .25s
+}
+.proj-card:hover{
+  border-color:var(--border2);
+  box-shadow:0 0 0 1px rgba(255,255,255,0.06),0 16px 48px rgba(0,0,0,0.5);
+  transform:translateY(-2px)
+}
+.pc-top{display:flex;justify-content:space-between;align-items:flex-start}
+.pc-icon{
+  width:36px;height:36px;background:var(--bg3);
+  border:1px solid var(--border);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;flex-shrink:0
+}
+.pc-status{
+  font-family:var(--mono);font-size:.62rem;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--text3)
+}
+.pc-title{
+  font-family:var(--serif);font-size:1.1rem;font-weight:400;
+  color:var(--text);letter-spacing:-.01em;line-height:1.3
+}
+.pc-rows{display:flex;flex-direction:column;gap:.5rem}
+.pc-row{display:flex;gap:.65rem;align-items:baseline}
+.pc-rl{
+  font-family:var(--mono);font-size:.6rem;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--text3);min-width:56px
+}
+.pc-rv{font-size:.82rem;color:var(--text2);line-height:1.55;font-weight:300}
+.pc-tags{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.25rem}
+.pc-tags .tag{font-size:.65rem}
+
+/* ── TIMELINE ── */
+.tl{position:relative;padding-left:1.75rem}
+.tl::before{
+  content:'';position:absolute;left:0;top:8px;bottom:8px;
+  width:1px;background:var(--border)
+}
+.tl-item{position:relative;padding-bottom:2.25rem;padding-left:1.25rem}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{
+  position:absolute;left:-2.15rem;top:6px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--border2);
+  transition:border-color .2s
+}
+.tl-item:hover .tl-dot{border-color:var(--gold)}
+.tl-date{
+  font-family:var(--mono);font-size:.65rem;color:var(--text3);
+  text-transform:uppercase;letter-spacing:.07em;margin-bottom:.3rem
+}
+.tl-role{font-size:.94rem;font-weight:500;color:var(--text);margin-bottom:.15rem}
+.tl-co{font-size:.84rem;color:var(--text2);margin-bottom:.65rem}
+.tl-bullets{list-style:none}
+.tl-bullets li{
+  font-size:.82rem;color:var(--text2);line-height:1.65;
+  padding:.15rem 0 .15rem 1rem;position:relative;font-weight:300
+}
+.tl-bullets li::before{
+  content:'·';position:absolute;left:0;
+  color:var(--gold);font-size:1rem;line-height:1.4
+}
+
+/* ── SKILLS ── */
+.skills-deep{display:flex;flex-direction:column;gap:1.1rem}
+.sk-feat-label{
+  font-family:var(--mono);font-size:.62rem;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--text3);margin-bottom:.7rem
+}
+.sk-feat-items{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
+.sk-feat-item{
+  border-radius:var(--r2);padding:1.25rem;border:1px solid var(--border);
+  background:var(--surface)
+}
+.sk-ai{border-color:rgba(212,168,67,0.25);background:linear-gradient(135deg,rgba(212,168,67,0.07) 0%,var(--surface) 60%)}
+.sk-fin{border-color:rgba(34,197,94,0.2);background:linear-gradient(135deg,rgba(34,197,94,0.06) 0%,var(--surface) 60%)}
+.sk-data{border-color:rgba(99,102,241,0.2);background:linear-gradient(135deg,rgba(99,102,241,0.06) 0%,var(--surface) 60%)}
+.sk-feat-title{font-size:.875rem;font-weight:500;color:var(--text);margin-bottom:.25rem}
+.sk-feat-desc{font-size:.76rem;color:var(--text3);line-height:1.5;font-weight:300}
+.sk-pill{
+  background:rgba(255,255,255,0.06);border:1px solid var(--border);
+  border-radius:5px;padding:.22rem .6rem;font-size:.73rem;color:var(--text2)
+}
+.sk-pills{display:flex;flex-wrap:wrap;gap:.35rem}
+.sk-pill-hi{background:rgba(255,255,255,0.1) !important;font-weight:500 !important;color:var(--text) !important}
+.sk-also{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.25rem
+}
+.sk-also-label{
+  font-family:var(--mono);font-size:.6rem;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--text3);margin-bottom:.5rem
+}
+
+/* ── CONTACT ── */
+#contact-wrap{background:var(--bg3);border-top:1px solid var(--border)}
+.contact-inner{
+  max-width:1200px;margin:0 auto;padding:5rem 5%;
+  display:flex;justify-content:space-between;
+  align-items:center;gap:3rem;flex-wrap:wrap
+}
+.contact-h{
+  font-family:var(--serif);font-size:clamp(2.2rem,3.2vw,3rem);
+  color:var(--text);font-weight:400;letter-spacing:-.025em;margin-bottom:.65rem
+}
+.contact-sub{font-size:.9rem;color:var(--text2);font-weight:300}
+.contact-links{display:flex;flex-direction:column;gap:.7rem}
+.cl{
+  display:flex;align-items:center;gap:.75rem;
+  color:var(--text2);font-size:.875rem;transition:color .2s
+}
+.cl:hover{color:var(--text)}
+.cl-icon{
+  width:32px;height:32px;
+  background:rgba(255,255,255,0.06);border:1px solid var(--border);
+  border-radius:7px;display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;font-family:var(--mono);color:var(--text3);flex-shrink:0
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--bg3);border-top:1px solid var(--border);
+  padding:1.25rem 5%;text-align:center;
+  font-family:var(--mono);font-size:.65rem;color:var(--text3)
+}
+
+/* ── PROBLEM PANEL UTILS ── */
+.prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:1.5rem}
+.prob-col-label{
+  font-size:.78rem;color:var(--text3);font-family:var(--mono);
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:.65rem
+}
+.prob-col-body{font-size:.92rem;color:var(--text2);line-height:1.8;font-weight:300}
+.prob-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
+.prob-stat{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);padding:.95rem 1.05rem
+}
+.prob-stat-label{
+  font-family:var(--mono);font-size:.62rem;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--text3);margin-bottom:.35rem
+}
+.prob-stat-val{font-size:.9rem;color:var(--text2);font-weight:300}
+
+/* SENTIMENT VISUAL UTILS */
+.sent-class-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.65rem;margin-bottom:1.5rem}
+.sc-item{border-radius:var(--r);padding:.85rem;text-align:center;border:1px solid}
+.sc-label{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.35rem}
+.sc-desc{font-size:.73rem;line-height:1.5;font-weight:300}
+.sc-vn{background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.2);color:#f87171}
+.sc-vn .sc-desc{color:#f87171;opacity:.75}
+.sc-n{background:rgba(251,191,36,0.07);border-color:rgba(251,191,36,0.18);color:#fbbf24}
+.sc-n .sc-desc{color:#fbbf24;opacity:.7}
+.sc-neu{background:rgba(255,255,255,0.04);border-color:var(--border);color:var(--text3)}
+.sc-neu .sc-desc{color:var(--text3)}
+.sc-p{background:rgba(34,197,94,0.07);border-color:rgba(34,197,94,0.18);color:#4ade80}
+.sc-p .sc-desc{color:#4ade80;opacity:.75}
+.sc-vp{background:rgba(34,197,94,0.12);border-color:rgba(34,197,94,0.3);color:#22c55e}
+.sc-vp .sc-desc{color:#22c55e;opacity:.8}
+.sent-f1-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.sent-dist-label{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:.7rem}
+.dist-bar-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem}
+.dist-lbl{font-size:.7rem;color:var(--text3);min-width:70px}
+.dist-track{flex:1;height:14px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.dist-fill{height:100%;border-radius:2px}
+.dist-val{font-family:var(--mono);font-size:.65rem;color:var(--text3)}
+.f1-item{
+  background:var(--bg3);border:1px solid var(--border);border-radius:7px;
+  padding:.7rem .95rem;display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:.5rem
+}
+.f1-name{font-size:.82rem;color:var(--text2)}
+.f1-vals{display:flex;align-items:center;gap:.55rem}
+.f1-base{font-family:var(--mono);font-size:.72rem;color:var(--text3)}
+.f1-sft{font-family:var(--mono);font-size:.72rem;color:var(--green);font-weight:500}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  #hero{grid-template-columns:1fr;padding-top:5.5rem;gap:2.5rem}
+  /* hero-photo-col: removed in v7 */
+  .about-grid{grid-template-columns:1fr}
+  .fl-header{flex-direction:column}
+  .fl-panel{padding:2rem 1.5rem}
+  .fl-tabs{padding:0 1.5rem}
+  .fl-header{padding:2rem 1.5rem}
+  .proj-grid{grid-template-columns:1fr}
+  .writing-grid{grid-template-columns:1fr}
+  .sk-feat-items{grid-template-columns:1fr}
+  .sk-also{grid-template-columns:1fr 1fr}
+  .rl-flow{grid-template-columns:1fr;gap:.5rem}
+  .findings-grid{grid-template-columns:1fr}
+  .sent-class-grid{grid-template-columns:1fr 1fr}
+  .sent-f1-grid{grid-template-columns:1fr}
+  .prob-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  nav{padding:0 1.25rem}
+  .nav-r a:not(.nav-btn){display:none}
+  .section{padding:4rem 1.25rem}
+  .hero-stat-row{grid-template-columns:1fr 1fr}
+  .sk-also{grid-template-columns:1fr}
+  .oos-row{grid-template-columns:1fr}
+  .prob-stats{grid-template-columns:1fr}
+  .rl-reward-items{grid-template-columns:1fr}
+  .sent-class-grid{grid-template-columns:1fr}
+}
+  
+/* ── ABOUT EDITORIAL ── */
+.about-editorial{display:grid;grid-template-columns:1fr 380px;gap:5rem;align-items:start}
+.about-p{font-size:.95rem;color:var(--text2);line-height:1.85;font-weight:300;margin-bottom:1.1rem}
+.about-p strong{color:var(--text);font-weight:500}
+.about-right{}
+.about-cred{display:flex;flex-direction:column;gap:1.5rem;padding-left:2rem;border-left:1px solid var(--border)}
+.about-cred-item{}
+.about-cred-label{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-bottom:.35rem}
+.about-cred-val{font-size:.9rem;color:var(--text);font-weight:400;line-height:1.4}
+.about-cred-val2{font-size:.8rem;color:var(--text3);margin-top:.15rem}
+
+/* ── EXPERIENCE EDITORIAL ── */
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.exp-card{background:var(--bg);padding:2.25rem 2rem;display:flex;flex-direction:column;gap:1rem;transition:background .2s}
+.exp-card:hover{background:var(--surface)}
+.exp-featured{background:var(--surface)}
+.exp-featured:hover{background:var(--bg2)}
+.exp-top{display:flex;justify-content:space-between;align-items:flex-start}
+.exp-role{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:.2rem}
+.exp-co{font-size:.84rem;color:var(--text2)}
+.exp-date{font-family:var(--mono);font-size:.7rem;color:var(--text3);padding-top:.2rem}
+.exp-body{font-size:.875rem;color:var(--text2);line-height:1.75;font-weight:300}
+.exp-stats{display:flex;gap:1.5rem;padding:.9rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.exp-stat{display:flex;flex-direction:column;gap:.15rem}
+.exp-stat-n{font-family:var(--serif);font-size:1.5rem;color:var(--gold);line-height:1}
+.exp-stat-l{font-size:.65rem;color:var(--text3);font-family:var(--mono)}
+.exp-tags{display:flex;gap:.35rem;flex-wrap:wrap}
+
+/* ── CAPABILITIES ── */
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:1px}
+.cap-card{background:var(--surface);padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:background .2s}
+.cap-card:hover{background:var(--bg2)}
+.cap-primary{}
+.cap-header{display:flex;align-items:center;gap:.75rem}
+.cap-icon{width:36px;height:36px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0}
+.cap-title{font-size:1rem;font-weight:500;color:var(--text)}
+.cap-desc{font-size:.82rem;color:var(--text2);line-height:1.65;font-weight:300}
+.cap-items{display:flex;flex-direction:column;gap:.3rem;margin-top:.25rem}
+.cap-item{font-size:.8rem;color:var(--text3);padding:.25rem 0;border-bottom:1px solid var(--border);font-family:var(--mono)}
+.cap-item:last-child{border-bottom:none}
+.cap-tools{background:var(--surface);padding:1.25rem 2rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.cap-tool-label{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-right:.25rem}
+.cap-tool{font-family:var(--mono);font-size:.72rem;color:var(--text3);padding:.2rem .55rem;background:rgba(255,255,255,0.04);border-radius:4px}
+
+/* ── COUNT-UP ANIMATION ── */
+.exp-stat-n[data-target]{transition:color .3s}
+
+/* ── HERO STAT COUNT-UP ── */
+.hstat-n.counting{color:var(--gold)}
+
+/* ── LINE REVEAL ANIMATION ── */
+@keyframes lineReveal{from{width:0}to{width:100%}}
+.about-cred{animation:none}
+.about-cred.revealed{border-left:1px solid var(--border)}
+
+/* ── CHART BAR SHIMMER ── */
+.bar-fill::after{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.06) 50%,transparent 100%);
+  animation:shimmer 2.5s infinite;transform:translateX(-100%)
+}
+@keyframes shimmer{100%{transform:translateX(100%)}}
+.bar-fill{position:relative;overflow:hidden}
+
+/* ── HERO REFINEMENTS ── */
+.hero-h1{font-size:clamp(3rem,5vw,4.8rem)}
+.hero-eyebrow{font-size:.68rem}
+
+/* ── SECTION TITLE REFINEMENT ── */
+.sec-title{font-size:clamp(2rem,3vw,2.8rem)}
+
+/* ── REMOVE REDUNDANT BORDERS from project label rows ── */
+.cap-item:last-child{border:none}
+
+/* ── EXPERIENCE GRID RESPONSIVE ── */
+@media(max-width:900px){
+  .exp-grid{grid-template-columns:1fr;background:transparent;gap:1px}
+  .exp-card{border:1px solid var(--border)}
+  .cap-grid{grid-template-columns:1fr;background:transparent}
+  .cap-card{border:1px solid var(--border)}
+  .about-editorial{grid-template-columns:1fr}
+  .about-cred{padding-left:0;border-left:none;padding-top:1.5rem;border-top:1px solid var(--border)}
+}
+@media(max-width:600px){
+  .exp-stats{flex-wrap:wrap;gap:1rem}
+  .cap-tools{padding:1rem 1.25rem}
+}
+
+
+/* ══════════════════════════════════════════
+   HERO V7 — Product-first layout
+══════════════════════════════════════════ */
+
+/* Hero grid: left story / right product */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 7rem 5% 4rem;
+}
+
+.hero-left { max-width: 560px; }
+
+/* Hero credibility line — replaces chips */
+.hero-cred {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 2.25rem;
+  flex-wrap: wrap;
+}
+.hero-cred-item {
+  font-family: var(--mono);
+  font-size: .65rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--text3);
+}
+.hero-cred-dot { color: var(--border2); font-size: .65rem; }
+
+/* ── PRODUCT VISUAL (right side) ── */
+.hero-right { width: 100%; }
+
+.hero-product {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 24px 80px rgba(0,0,0,0.6);
+}
+
+.hp-label {
+  font-family: var(--mono);
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--text3);
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+
+.hp-pipeline {
+  display: flex;
+  flex-direction: column;
+  padding: .5rem 0;
+}
+
+/* Each pipeline node */
+.hp-node {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .85rem 1.5rem;
+  transition: background .2s;
+  opacity: 0;
+  transform: translateX(12px);
+  animation: nodeSlide .4s ease forwards;
+  animation-delay: var(--delay, 0s);
+}
+.hp-node:hover { background: rgba(255,255,255,0.03); }
+
+@keyframes nodeSlide {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.hp-node-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text3);
+  flex-shrink: 0;
+  transition: border-color .2s;
+}
+.hp-icon-gold { background: var(--gold-dim); border-color: var(--gold-border); color: var(--gold); }
+.hp-icon-bright { background: rgba(212,168,67,0.2); border-color: rgba(212,168,67,0.5); color: var(--gold2); }
+
+.hp-node-body { flex: 1; min-width: 0; }
+.hp-node-title {
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: .15rem;
+}
+.hp-node-desc {
+  font-size: .72rem;
+  color: var(--text3);
+  line-height: 1.4;
+  font-family: var(--mono);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hp-node-badge {
+  font-family: var(--mono);
+  font-size: .6rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: .2rem .55rem;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  color: var(--text3);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.hp-badge-gold {
+  background: var(--gold-dim);
+  border-color: var(--gold-border);
+  color: var(--gold);
+}
+.hp-badge-green {
+  background: rgba(34,197,94,0.12);
+  border-color: rgba(34,197,94,0.3);
+  color: var(--green);
+}
+
+/* Connector line between nodes */
+.hp-connector {
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  height: 14px;
+  opacity: 0;
+  animation: connFade .3s ease forwards;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes connFade { to { opacity: 1; } }
+
+.hp-conn-line {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--border), var(--gold-border));
+  margin-left: 15px; /* align with center of icon */
+}
+
+/* Output node — highlighted */
+.hp-node-output { border-top: 1px solid var(--border); margin-top: .25rem; }
+.hp-node-output .hp-node-title { color: var(--gold); }
+
+/* ══════════════════════════════════════════
+   METRICS BAND — before flagship
+══════════════════════════════════════════ */
+.metrics-band {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.metrics-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%;
+  display: flex;
+  align-items: stretch;
+}
+.metric-stat {
+  flex: 1;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  transition: background .2s;
+}
+.metric-stat:hover { background: var(--surface); }
+.mstat-n {
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  color: var(--text);
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -.025em;
+}
+.mstat-label {
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-top: .1rem;
+}
+.mstat-sub {
+  font-size: .7rem;
+  color: var(--text3);
+  font-family: var(--mono);
+  line-height: 1.4;
+}
+.mstat-divider {
+  width: 1px;
+  background: var(--border);
+  flex-shrink: 0;
+  margin: 1.5rem 0;
+}
+
+/* ══════════════════════════════════════════
+   ABOUT SECTION: add photo in bottom of about
+══════════════════════════════════════════ */
+.about-photo-small {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  margin-top: 1.5rem;
+  filter: grayscale(20%);
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE OVERRIDES
+══════════════════════════════════════════ */
+@media (max-width: 1000px) {
+  #hero {
+    grid-template-columns: 1fr;
+    padding-top: 5.5rem;
+    gap: 3rem;
+    min-height: auto;
+    padding-bottom: 3rem;
+  }
+  .hero-left { max-width: 100%; }
+  .hp-node-desc { white-space: normal; }
+}
+
+@media (max-width: 600px) {
+  .metrics-inner { flex-direction: column; }
+  .mstat-divider { width: 100%; height: 1px; margin: 0; }
+  .metric-stat { padding: 1.5rem 1.25rem; }
+  .mstat-n { font-size: 2rem; }
+  .hp-node-desc { display: none; }
+}
+
+</style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <span class="nav-name">Maggie Tu</span>
-    <div class="nav-links">
-      <a href="#project">Project</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">Maggie Tu</a>
+  <div class="nav-r">
+    <a href="#about">About</a>
+    <a href="#flagship">Project</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact-wrap" class="nav-btn">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+
+  <!-- LEFT: Story -->
+  <div class="hero-left fade-up">
+    <div class="hero-eyebrow">Nashville, TN · Open to Relocation</div>
+    <h1 class="hero-h1">I find the signal in what companies say —<br/><em>and what they're careful not to.</em></h1>
+    <p class="hero-sub">Data Scientist building AI systems that extract financial signal from unstructured language — fine-tuned, RL-aligned, and validated against real market outcomes.</p>
+    <div class="hero-cred">
+      <span class="hero-cred-item">MS Data Science · Vanderbilt</span>
+      <span class="hero-cred-dot">·</span>
+      <span class="hero-cred-item">NLP Research</span>
+      <span class="hero-cred-dot">·</span>
+      <span class="hero-cred-item">Financial AI</span>
     </div>
-  </nav>
-
-  <!-- HERO -->
-  <section id="hero">
-    <p class="label">ML Engineer · NLP × Quant Finance</p>
-    <h1>Turning SEC filings<br/>into alpha signals.</h1>
-    <p class="sub">I build end-to-end LLM pipelines that extract meaning from financial documents — fine-tuned, RL-aligned, and backtested.</p>
-    <div class="hero-btns">
-      <a href="#project" class="btn-primary">See the project</a>
-      <a href="https://www.linkedin.com/in/maggie-tu/" class="btn-secondary">Get in touch</a>
+    <div class="hero-actions">
+      <a href="#flagship" class="btn-solid">View flagship project ↓</a>
+      <a href="Maggie_Tu_Resume.pdf" target="_blank" class="btn-ghost btn-icon">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="12" x2="12" y2="18"/><polyline points="9 18 12 21 15 18"/></svg>
+        Resume
+      </a>
+      <a href="https://github.com/WanlinTu" target="_blank" class="btn-ghost btn-icon">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/maggie-tu/" target="_blank" class="btn-ghost btn-icon">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
     </div>
-  </section>
+  </div>
 
-  <!-- PROJECT -->
-  <section id="project">
-    <p class="label">Featured project</p>
-    <h2>Reasoning-Augmented Factor Extraction</h2>
-    <p class="project-sub">AllianceBernstein × Vanderbilt DSI · 2026</p>
+  <!-- RIGHT: Product visual -->
+  <div class="hero-right fade-up" style="transition-delay:.2s">
+    <div class="hero-product">
+      <div class="hp-label">SEC Filing NLP · End-to-End Pipeline</div>
+      <div class="hp-pipeline" id="hp-pipeline">
 
-    <div class="cards">
-      <div class="card">
-        <span class="card-num">2,441</span>
-        <span class="card-desc">SEC filings processed<br/>(10-K + 10-Q, 2015–2025)</span>
-      </div>
-      <div class="card">
-        <span class="card-num">2.02</span>
-        <span class="card-desc">HAC-valid Information Ratio<br/>(out-of-sample)</span>
-      </div>
-      <div class="card">
-        <span class="card-num">11/12</span>
-        <span class="card-desc">OOS cells meet or exceed<br/>in-sample IR</span>
-      </div>
-    </div>
+        <div class="hp-node" style="--delay:0s">
+          <div class="hp-node-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <div class="hp-node-body">
+            <div class="hp-node-title">SEC Filings</div>
+            <div class="hp-node-desc">2,441 10-K/10-Q filings · EDGAR · 2015–2025</div>
+          </div>
+          <div class="hp-node-badge">Input</div>
+        </div>
 
-    <div class="pipeline">
-      <div class="step">
-        <span class="step-num">01</span>
-        <strong>Factor extraction</strong>
-        <p>60-question taxonomy over MD&A and Risk Factors using DeepSeek-R1-14B. 67,741 scored factors across 2,441 filings.</p>
-      </div>
-      <div class="arrow">→</div>
-      <div class="step">
-        <span class="step-num">02</span>
-        <strong>SFT fine-tuning</strong>
-        <p>QLoRA on 5,217 Claude Opus-annotated samples. Tail F1 doubled vs base model.</p>
-      </div>
-      <div class="arrow">→</div>
-      <div class="step">
-        <span class="step-num">03</span>
-        <strong>RL alignment</strong>
-        <p>GRPO with composite ordinal + anti-neutral reward. L/S spread: 2.78% → 8.09%.</p>
-      </div>
-      <div class="arrow">→</div>
-      <div class="step">
-        <span class="step-num">04</span>
-        <strong>Backtesting</strong>
-        <p>48-cell event-study grid across 4 strategies × 4 variants × 3 horizons. Pre-registered protocol.</p>
-      </div>
-    </div>
-  </section>
+        <div class="hp-connector" style="--delay:.15s"><div class="hp-conn-line"></div></div>
 
-  <!-- SKILLS -->
-  <section id="skills">
-    <p class="label">Skills</p>
-    <h2>What I work with</h2>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <h4>LLMs & NLP</h4>
-        <ul>
-          <li>SFT / QLoRA fine-tuning</li>
-          <li>GRPO RL alignment</li>
-          <li>Multi-agent orchestration</li>
-          <li>RAG pipeline design</li>
-        </ul>
-      </div>
-      <div class="skill-group">
-        <h4>Quant Finance</h4>
-        <ul>
-          <li>SEC EDGAR processing</li>
-          <li>Factor & sentiment extraction</li>
-          <li>Event-study backtesting</li>
-          <li>HAC / Newey-West statistics</li>
-        </ul>
-      </div>
-      <div class="skill-group">
-        <h4>Engineering</h4>
-        <ul>
-          <li>Python, PyTorch, HuggingFace</li>
-          <li>vLLM serving</li>
-          <li>iXBRL / HTML parsing</li>
-          <li>Git, Docker</li>
-        </ul>
+        <div class="hp-node" style="--delay:.3s">
+          <div class="hp-node-icon hp-icon-gold">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="hp-node-body">
+            <div class="hp-node-title">Factor Extraction</div>
+            <div class="hp-node-desc">67K+ factors · 60 questions · DeepSeek-R1-14B</div>
+          </div>
+          <div class="hp-node-badge hp-badge-gold">Reasoning LLM</div>
+        </div>
+
+        <div class="hp-connector" style="--delay:.45s"><div class="hp-conn-line"></div></div>
+
+        <div class="hp-node" style="--delay:.6s">
+          <div class="hp-node-icon hp-icon-gold">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+          </div>
+          <div class="hp-node-body">
+            <div class="hp-node-title">Sentiment Model</div>
+            <div class="hp-node-desc">QLoRA fine-tuning · 5,217 labeled samples · 5-class ordinal</div>
+          </div>
+          <div class="hp-node-badge hp-badge-gold">SFT</div>
+        </div>
+
+        <div class="hp-connector" style="--delay:.75s"><div class="hp-conn-line"></div></div>
+
+        <div class="hp-node" style="--delay:.9s">
+          <div class="hp-node-icon hp-icon-gold">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <div class="hp-node-body">
+            <div class="hp-node-title">RL Alignment</div>
+            <div class="hp-node-desc">GRPO · reward = realized return quintile · +191% lift</div>
+          </div>
+          <div class="hp-node-badge hp-badge-gold">GRPO</div>
+        </div>
+
+        <div class="hp-connector" style="--delay:1.05s"><div class="hp-conn-line"></div></div>
+
+        <div class="hp-node hp-node-output" style="--delay:1.2s">
+          <div class="hp-node-icon hp-icon-bright">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="hp-node-body">
+            <div class="hp-node-title">Investment Signal</div>
+            <div class="hp-node-desc">IR 2.02 out-of-sample · 11/12 OOS scenarios validated</div>
+          </div>
+          <div class="hp-node-badge hp-badge-green">IR 2.02</div>
+        </div>
+
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <p class="label">Contact</p>
-    <h2>Let's talk.</h2>
-    <p>Open to quant ML roles, consulting, and signal research collaborations.</p>
+</section>
+
+<hr class="div"/>
+
+
+
+<!-- ABOUT -->
+<div class="section fade-up" id="about">
+  <p class="sec-label">About</p>
+  <div class="about-editorial">
+    <div class="about-left">
+      <h2 class="sec-title">Business instincts,<br/>ML execution.</h2>
+      <p class="about-p">I started in <strong>Business Analytics</strong> — learning how organizations make decisions under uncertainty. That grounding pushed me toward a harder question: what happens when AI can do the analysis faster, at scale, and without the blind spots?</p>
+      <p class="about-p">At Vanderbilt's Data Science Institute I've spent two years at the intersection of language, markets, and machine learning — building systems where the data is unstructured, the stakes are real, and the insight isn't obvious.</p>
+      <p class="about-p">I'm drawn to roles where <strong>technical rigor and business judgment</strong> are equally required. Where shipping something that works matters as much as explaining why it does.</p>
+      <img src="maggie.jpg" alt="Maggie Tu" class="about-photo-small" loading="lazy"/>
+    </div>
+    <div class="about-right">
+      <div class="about-cred">
+        <div class="about-cred-item">
+          <div class="about-cred-label">Education</div>
+          <div class="about-cred-val">M.S. Data Science · Vanderbilt '26</div>
+          <div class="about-cred-val2">B.S. Business Analytics · Cincinnati '23</div>
+        </div>
+        <div class="about-cred-item">
+          <div class="about-cred-label">Location</div>
+          <div class="about-cred-val">Nashville, TN</div>
+          <div class="about-cred-val2">Open to relocation · LA &amp; NYC preferred</div>
+        </div>
+        <div class="about-cred-item">
+          <div class="about-cred-label">Languages</div>
+          <div class="about-cred-val">English · Mandarin (Native)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="metrics-band fade-up">
+  <div class="metrics-inner">
+    <div class="metric-stat">
+      <div class="mstat-n">2.02</div>
+      <div class="mstat-label">Portfolio Information Ratio</div>
+      <div class="mstat-sub">Out-of-sample · 2023–2025</div>
+    </div>
+    <div class="mstat-divider"></div>
+    <div class="metric-stat">
+      <div class="mstat-n">67K+</div>
+      <div class="mstat-label">Factors Extracted</div>
+      <div class="mstat-sub">From 2,441 SEC filings</div>
+    </div>
+    <div class="mstat-divider"></div>
+    <div class="metric-stat">
+      <div class="mstat-n">+191%</div>
+      <div class="mstat-label">Signal Lift</div>
+      <div class="mstat-sub">Base → RL-aligned model</div>
+    </div>
+    <div class="mstat-divider"></div>
+    <div class="metric-stat">
+      <div class="mstat-n">11/12</div>
+      <div class="mstat-label">OOS Scenarios</div>
+      <div class="mstat-sub">Matched or beat in-sample</div>
+    </div>
+  </div>
+</div>
+
+<hr class="div"/>
+
+<!-- FLAGSHIP -->
+<div class="section fade-up" id="flagship">
+  <p class="sec-label">Flagship project</p>
+  <h2 class="sec-title">LLM-Powered Financial Signal Extraction</h2>
+  <p class="sec-sub">An end-to-end AI pipeline that reads a decade of SEC filings and generates investment signals — fine-tuned, RL-aligned, and validated on real market data the model never saw.</p>
+
+  <div class="flagship">
+    <!-- header -->
+    <div class="fl-header">
+      <div>
+        <div class="fl-tag">NLP · RL · Quant Finance · Personal Research</div>
+        <h2 class="fl-h2">From company language<br/>to tradeable signal</h2>
+        <p class="fl-desc">Most financial models ignore what executives actually say. This system reads the language behind 10 years of filings, scores 60 financial themes per company, and aligns those scores with real stock returns through reinforcement learning.</p>
+      </div>
+      <div class="fl-kpis">
+        <div class="kpi"><div class="kpi-n">2.02</div><div class="kpi-l">IR · out-of-sample</div></div>
+        <div class="kpi"><div class="kpi-n">+191%</div><div class="kpi-l">Signal lift vs base</div></div>
+        <div class="kpi"><div class="kpi-n">11/12</div><div class="kpi-l">OOS scenarios ≥ IS</div></div>
+      </div>
+    </div>
+
+    <!-- tabs -->
+    <div class="fl-tabs" id="fl-tabs">
+      <button class="fl-tab a" data-panel="problem">Problem</button>
+      <button class="fl-tab" data-panel="pipeline">How it works</button>
+      <button class="fl-tab" data-panel="extraction">Factor extraction</button>
+      <button class="fl-tab" data-panel="sentiment">Sentiment scoring</button>
+      <button class="fl-tab" data-panel="rl">RL alignment</button>
+      <button class="fl-tab" data-panel="results">Backtest results</button>
+      <button class="fl-tab" data-panel="findings">Key findings</button>
+      <button class="fl-tab" data-panel="lessons">Lessons</button>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="fl-panel a" id="panel-problem">
+      <div class="prob-grid">
+        <div>
+          <p class="prob-col-label">The gap</p>
+          <p class="prob-col-body">SEC 10-K and 10-Q filings contain rich forward-looking language — supply chain pressure, pricing power, competitive threats — that moves markets. But it's unstructured, verbose, and impossible to read at scale. Off-the-shelf sentiment tools flatten this nuance to a single positive/negative score.</p>
+        </div>
+        <div>
+          <p class="prob-col-label">The question</p>
+          <p class="prob-col-body">Can a language model trained specifically on financial MD&A extract the nuanced, factor-level sentiment that actually predicts stock returns — and can reinforcement learning align that model to real market outcomes?</p>
+        </div>
+      </div>
+      <div class="prob-stats">
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem">
+          <div class="prob-stat-label">Universe</div>
+          <div class="prob-stat-val">80 U.S. industrials tickers · 4 sub-sectors · 2015–2025</div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem">
+          <div class="prob-stat-label">Data</div>
+          <div class="prob-stat-val">2,441 filings · 10-K + 10-Q · MD&A + Risk Factors sections</div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem">
+          <div class="prob-stat-label">Taxonomy</div>
+          <div class="prob-stat-val">60 questions · 14 financial themes per filing</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIPELINE -->
+    <div class="fl-panel" id="panel-pipeline">
+      <!-- Architecture SVG Diagram -->
+      <div style="margin-bottom:1.75rem">
+        <svg width="100%" viewBox="0 0 860 200" xmlns="http://www.w3.org/2000/svg" style="max-width:860px;display:block">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" stroke-linecap="round"/>
+            </marker>
+          </defs>
+          <!-- boxes -->
+          <!-- EDGAR -->
+          <rect x="8" y="60" width="108" height="80" rx="8" fill="#1a1a1f" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <text x="62" y="92" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.5">01 · INGEST</text>
+          <text x="62" y="108" text-anchor="middle" font-family="Instrument Serif,serif" font-size="13" fill="#f0ede8">EDGAR</text>
+          <text x="62" y="124" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">2,441 filings</text>
+          <!-- arrow 1 -->
+          <line x1="116" y1="100" x2="134" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <!-- FACTOR EXTRACTION -->
+          <rect x="136" y="60" width="120" height="80" rx="8" fill="rgba(212,168,67,0.1)" stroke="rgba(212,168,67,0.3)" stroke-width="1"/>
+          <text x="196" y="92" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#d4a843" letter-spacing="0.5">02 · EXTRACT</text>
+          <text x="196" y="108" text-anchor="middle" font-family="Instrument Serif,serif" font-size="13" fill="#f0ede8">Factor Mining</text>
+          <text x="196" y="124" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">67K+ factors · 60 Qs</text>
+          <!-- arrow 2 -->
+          <line x1="256" y1="100" x2="274" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <!-- BASE SCORE -->
+          <rect x="276" y="60" width="120" height="80" rx="8" fill="#1a1a1f" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <text x="336" y="92" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="0.5">03 · SCORE</text>
+          <text x="336" y="108" text-anchor="middle" font-family="Instrument Serif,serif" font-size="13" fill="#f0ede8">Base Sentiment</text>
+          <text x="336" y="124" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">5-class ordinal</text>
+          <!-- arrow 3 -->
+          <line x1="396" y1="100" x2="414" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <!-- SFT -->
+          <rect x="416" y="50" width="120" height="100" rx="8" fill="rgba(34,197,94,0.08)" stroke="rgba(34,197,94,0.3)" stroke-width="1.5"/>
+          <text x="476" y="82" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#22c55e" letter-spacing="0.5">04 · FINE-TUNE</text>
+          <text x="476" y="98" text-anchor="middle" font-family="Instrument Serif,serif" font-size="13" fill="#f0ede8">QLoRA SFT</text>
+          <text x="476" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">5,217 labeled samples</text>
+          <text x="476" y="130" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#22c55e">Tail F1 ×2</text>
+          <!-- arrow 4 -->
+          <line x1="536" y1="100" x2="554" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <!-- GRPO -->
+          <rect x="556" y="50" width="120" height="100" rx="8" fill="rgba(212,168,67,0.1)" stroke="rgba(212,168,67,0.3)" stroke-width="2"/>
+          <text x="616" y="82" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#d4a843" letter-spacing="0.5">05 · RL ALIGN</text>
+          <text x="616" y="98" text-anchor="middle" font-family="Instrument Serif,serif" font-size="13" fill="#f0ede8">GRPO</text>
+          <text x="616" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">Reward: return quintile</text>
+          <text x="616" y="130" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#d4a843">+191% L/S lift</text>
+          <!-- arrow 5 -->
+          <line x1="676" y1="100" x2="694" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <!-- SIGNAL -->
+          <rect x="696" y="60" width="120" height="80" rx="8" fill="#f0ede8" stroke="#18170f" stroke-width="1"/>
+          <text x="756" y="92" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(240,237,232,0.4)" letter-spacing="0.5">06 · OUTPUT</text>
+          <text x="756" y="108" text-anchor="middle" font-family="Instrument Serif,serif" font-size="13" fill="#f0ede8">Portfolio Signal</text>
+          <text x="756" y="124" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(240,237,232,0.4)">IR 2.02 · OOS validated</text>
+          <!-- bottom labels -->
+          <text x="62" y="165" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,255,255,0.2)">Raw HTML</text>
+          <text x="196" y="165" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,255,255,0.2)">DeepSeek-R1-14B</text>
+          <text x="336" y="165" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,255,255,0.2)">Zero-shot</text>
+          <text x="476" y="165" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#22c55e">Opus-labeled</text>
+          <text x="616" y="165" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#d4a843">Pre-registered</text>
+          <text x="756" y="165" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,255,255,0.2)">48-cell backtest</text>
+        </svg>
+      </div>
+      <div class="pipeline-visual">
+        <div class="pipe-step"><div class="pipe-num">01 · Ingest</div><div class="pipe-name">EDGAR → HTML</div><div class="pipe-detail">2,441 filings parsed, iXBRL stripped, MD&A and Risk Factors extracted</div></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step"><div class="pipe-num">02 · Extract</div><div class="pipe-name">Factor extraction</div><div class="pipe-detail">DeepSeek-R1-14B answers 60 questions per filing, producing 67K+ factor summaries</div></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step"><div class="pipe-num">03 · Score</div><div class="pipe-name">Sentiment scoring</div><div class="pipe-detail">Base model assigns 5-class ordinal label to each factor</div></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step"><div class="pipe-num">04 · Fine-tune</div><div class="pipe-name">QLoRA SFT</div><div class="pipe-detail">Fine-tuned on 5,217 Claude Opus-labeled samples; tail F1 doubles</div></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step"><div class="pipe-num">05 · Align</div><div class="pipe-name">GRPO RL</div><div class="pipe-detail">Composite reward aligns model to real 21-day stock returns</div></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step"><div class="pipe-num">06 · Signal</div><div class="pipe-name">Portfolio signal</div><div class="pipe-detail">4-agent pipeline aggregates factors to a filing-level [-1,1] signal</div></div>
+      </div>
+      <div class="insight">Each stage is <strong>versioned and auditable</strong> — the pipeline skips completed steps on resume, every output is committed as an artifact, and the backtest grid was pre-registered before observing results.</div>
+    </div>
+
+    <!-- FACTOR EXTRACTION -->
+    <div class="fl-panel" id="panel-extraction">
+      <p style="font-size:.85rem;color:var(--text2);line-height:1.75;font-weight:300;margin-bottom:1.5rem">The model reads each subsection of an MD&A filing and answers 60 targeted questions. For each question it finds evidence for, it produces a directional summary and verbatim quote. Here's what that looks like on a real filing passage:</p>
+      <div class="example-box">
+        <div class="ex-label">Input · filing excerpt (MD&A, supply chain section)</div>
+        <div class="ex-body">
+          <div class="ex-text">"Supply chain disruptions continued to impact component availability throughout the fiscal year. We experienced lead times extending from 12 to 26 weeks on key electronic components, resulting in delayed deliveries to certain OEM customers and increased procurement costs. Management is actively diversifying supplier relationships and investing in safety stock to mitigate forward risk, though near-term margin pressure is expected to persist."</div>
+          <p style="font-size:.75rem;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem">Extracted factors →</p>
+          <div class="ex-factors">
+            <div class="ex-factor">
+              <div class="ex-factor-cat">supply_chain_ops</div>
+              <div class="ex-factor-val">Lead times doubled (12→26 wks); OEM delivery delays; procurement cost increases</div>
+              <span class="sent-badge sent-n">Negative</span>
+            </div>
+            <div class="ex-factor">
+              <div class="ex-factor-cat">cost_margins</div>
+              <div class="ex-factor-val">Near-term margin pressure expected to persist; increased procurement costs</div>
+              <span class="sent-badge sent-vn">Very Negative</span>
+            </div>
+            <div class="ex-factor">
+              <div class="ex-factor-cat">outlook_guidance</div>
+              <div class="ex-factor-val">Diversifying suppliers and building safety stock; mitigation underway</div>
+              <span class="sent-badge sent-neu">Neutral</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="insight">One passage → three distinct factor signals. The model scores them independently, capturing that the <strong>current situation is negative</strong> but <strong>management is acting</strong> — a nuance a single sentiment score would collapse.</div>
+    </div>
+
+    <!-- SENTIMENT SCORING -->
+    <div class="fl-panel" id="panel-sentiment">
+      <p style="font-size:.85rem;color:var(--text2);line-height:1.75;font-weight:300;margin-bottom:1.5rem">Each factor receives one of five ordinal labels. The model was fine-tuned specifically to distinguish tail signals — the very negative and very positive cases that the long-short strategy actually trades.</p>
+      <div class="sent-class-grid">
+        <div class="sc-item sc-vn">
+          <div class="sc-label">Very Negative</div>
+          <div class="sc-desc">Clear, significant deterioration or major risk catalyst</div>
+        </div>
+        <div class="sc-item sc-n">
+          <div class="sc-label">Negative</div>
+          <div class="sc-desc">Headwinds or decline without existential risk</div>
+        </div>
+        <div class="sc-item sc-neu">
+          <div class="sc-label">Neutral</div>
+          <div class="sc-desc">Mixed signals or insufficient directional evidence</div>
+        </div>
+        <div class="sc-item sc-p">
+          <div class="sc-label">Positive</div>
+          <div class="sc-desc">Tailwinds, growth, or improving trajectory</div>
+        </div>
+        <div class="sc-item sc-vp">
+          <div class="sc-label">Very Positive</div>
+          <div class="sc-desc">Strong positive catalyst or exceptional performance</div>
+        </div>
+      </div>
+      <div class="sent-f1-grid">
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem">
+          <div class="sent-dist-label">Base model distribution (67K factors)</div>
+          <div style="display:flex;flex-direction:column;gap:.4rem">
+            <div class="dist-bar-row"><div class="dist-lbl">Very neg.</div><div class="dist-track"><div class="dist-fill" style="width:3.7%;background:rgba(212,168,67,0.3)"></div></div><div class="dist-val">3.7%</div></div>
+            <div class="dist-bar-row"><div class="dist-lbl">Negative</div><div class="dist-track"><div class="dist-fill" style="width:22.4%;background:rgba(212,168,67,0.5)"></div></div><div class="dist-val">22.4%</div></div>
+            <div class="dist-bar-row"><div class="dist-lbl">Neutral</div><div class="dist-track"><div class="dist-fill" style="width:29.9%;background:rgba(212,168,67,0.35)"></div></div><div class="dist-val">29.9%</div></div>
+            <div class="dist-bar-row"><div class="dist-lbl">Positive</div><div class="dist-track"><div class="dist-fill" style="width:32.4%;background:var(--green)"></div></div><div class="dist-val">32.4%</div></div>
+            <div class="dist-bar-row"><div class="dist-lbl">Very pos.</div><div class="dist-track"><div class="dist-fill" style="width:2.9%;background:#16a34a"></div></div><div class="dist-val">2.9%</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="sent-dist-label">Tail F1 after fine-tuning</div>
+          <div style="display:flex;flex-direction:column;gap:.6rem">
+            <div class="f1-item">
+              <span class="f1-name">Very negative F1</span>
+              <div class="dist-bar-row"><span class="f1-base">Base: 0.025</span><span class="f1-sft">SFT: 0.050 ↑2×</span></div>
+            </div>
+            <div class="f1-item">
+              <span class="f1-name">Very positive F1</span>
+              <div class="dist-bar-row"><span class="f1-base">Base: 0.034</span><span class="f1-sft">SFT: 0.077 ↑2.3×</span></div>
+            </div>
+            <div class="f1-item">
+              <span class="f1-name">Quadratic Weighted Kappa</span>
+              <div class="dist-bar-row"><span class="f1-base">0.017</span><span class="f1-sft">0.027 ↑60%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RL ALIGNMENT -->
+    <div class="fl-panel" id="panel-rl">
+      <p style="font-size:.85rem;color:var(--text2);line-height:1.75;font-weight:300;margin-bottom:1.5rem">After SFT, the model classifies language well — but "well" by Opus's annotation rubric, not by market outcomes. GRPO reinforcement learning closes that gap by directly optimizing for what matters: does the sentiment predict the stock return?</p>
+      <div class="rl-flow">
+        <div class="rl-box"><div class="rl-box-label">Input</div><div class="rl-box-val">Factor summary + evidence from filing</div></div>
+        <div class="rl-arrow">→</div>
+        <div class="rl-box"><div class="rl-box-label">Policy (SFT model)</div><div class="rl-box-val">Generates 16 sentiment label candidates per factor</div></div>
+        <div class="rl-arrow">→</div>
+        <div class="rl-box"><div class="rl-box-label">Reward signal</div><div class="rl-box-val">Composite reward vs realized 21-day return quintile</div></div>
+      </div>
+      <div class="rl-reward">
+        <div class="rl-reward-label">Composite reward function</div>
+        <div class="rl-reward-items">
+          <div class="rri"><div class="rri-label">Ordinal credit</div><div class="rri-val">Distance-0 → 1.00<br/>Distance-1 → 0.50<br/>Distance-4 → −1.00</div></div>
+          <div class="rri"><div class="rri-label">Tail-miss penalty</div><div class="rri-val">−0.30 if gold is polar (very neg/pos) and model predicts neutral</div></div>
+          <div class="rri"><div class="rri-label">Format gate</div><div class="rri-val">R = −1.0 if JSON fails to parse; enforces output structure</div></div>
+        </div>
+      </div>
+      <div class="insight"><strong>Why GRPO over PPO or DPO?</strong> PPO requires a critic network (too large for 14B on one A100). DPO needs pairwise preferences (we have ordinal quintile labels, not pairs). GRPO consumes scalar rewards natively and its multi-sample rollout doubles as the Best-of-N verifier at inference time.</div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="fl-panel" id="panel-results">
+      <p style="font-size:.82rem;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem">Long-short return spread · 21-day horizon</p>
+      <div class="bar-chart" id="results-bars">
+        <div class="bar-row"><div class="bar-lbl">Base model</div><div class="bar-track"><div class="bar-fill bf1" data-pct="27"><span class="bar-val">+2.78%</span></div></div><div class="bar-sfx">starting point</div></div>
+        <div class="bar-row"><div class="bar-lbl">+ Fine-tuning (SFT)</div><div class="bar-track"><div class="bar-fill bf2" data-pct="48"><span class="bar-val">+4.88%</span></div></div><div class="bar-sfx">+76% lift</div></div>
+        <div class="bar-row"><div class="bar-lbl">+ RL alignment (GRPO)</div><div class="bar-track"><div class="bar-fill bf3" data-pct="79"><span class="bar-val">+8.09%</span></div></div><div class="bar-sfx">+191% vs base</div></div>
+      </div>
+      <p style="font-size:.82rem;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin:1.5rem 0 .75rem">Out-of-sample validation · 2023–2025 held-out data</p>
+      <div class="oos-row">
+        <div class="oos-c hi"><div class="oos-num">2.02</div><div class="oos-lbl">Information Ratio · sector-neutral · HAC-valid</div></div>
+        <div class="oos-c hi"><div class="oos-num">11/12</div><div class="oos-lbl">OOS scenarios matching or exceeding IS performance</div></div>
+        <div class="oos-c"><div class="oos-num">605</div><div class="oos-lbl">Filings in held-out test set · never seen during training</div></div>
+      </div>
+      <div class="insight"><strong>Why IR 2.02 matters:</strong> An Information Ratio above 1.0 is considered strong by institutional standards. This hit 2.02 on data the model had never seen — the real test. The signal also survived 5–10 bps trading costs with 85%+ IR retention at 3 and 6-month horizons.</div>
+    </div>
+
+    <!-- KEY FINDINGS -->
+    <div class="fl-panel" id="panel-findings">
+      <div class="findings-grid">
+        <div class="finding"><div class="finding-num">01</div><div class="finding-text"><strong>Each pipeline stage contributed measurably.</strong> Base → SFT → GRPO is strictly monotone on L/S spread (+2.78% → +4.88% → +8.09%). Every component earns its compute.</div></div>
+        <div class="finding"><div class="finding-num">02</div><div class="finding-text"><strong>The signal is a tail detector, not a linear factor.</strong> Rank-IC ≈ 0 across all variants — middle cohorts carry near-zero predictive mass. Only extreme sentiment predicts returns.</div></div>
+        <div class="finding"><div class="finding-num">03</div><div class="finding-text"><strong>Defense sector shows the strongest lift (+18.2% at SFT).</strong> Language in defense filings is highly predictive — specific procurement language, contract backlog signals.</div></div>
+        <div class="finding"><div class="finding-num">04</div><div class="finding-text"><strong>Transports sector has inverted sentiment.</strong> Upbeat airline filings predict mean-reversion. Distress-rebound dynamics dominate — a production system should exclude or gate this sub-sector.</div></div>
+        <div class="finding"><div class="finding-num">05</div><div class="finding-text"><strong>Longer horizons are more cost-resilient.</strong> At 25 bps costs, H=21 loses 76% of IR. H=63 and H=126 retain 58% and 34% respectively — the signal is designed for patient capital.</div></div>
+        <div class="finding"><div class="finding-num">06</div><div class="finding-text"><strong>OOS performance matched or exceeded IS in 11/12 scenarios.</strong> This is the strongest evidence the model learned something real, not a pattern that happened to fit the training window.</div></div>
+      </div>
+    </div>
+
+    <!-- LESSONS -->
+    <div class="fl-panel" id="panel-lessons">
+      <div class="lessons">
+        <div class="lesson"><div class="lesson-n">01</div><div class="lesson-text"><strong>Pre-register before you look at results.</strong> The entire 48-cell backtest grid was locked before test inference ran. This is the only way to know a result isn't p-hacked — and it forced cleaner thinking upfront.</div></div>
+        <div class="lesson"><div class="lesson-n">02</div><div class="lesson-text"><strong>Leakage hides in unexpected places.</strong> Mid-project audit found IC weights computed on the full panel (including test years) flowing into signal aggregation. The fix was simple — the detection was hard. Always trace data lineage end-to-end.</div></div>
+        <div class="lesson"><div class="lesson-n">03</div><div class="lesson-text"><strong>GRPO's lift is portfolio-level, not sample-level.</strong> Sample F1 barely moved. But the shape of the predictive distribution shifted — more decisive tails — which compounded through aggregation into large portfolio gains. Evaluation metrics need to match the actual use case.</div></div>
+        <div class="lesson"><div class="lesson-n">04</div><div class="lesson-text"><strong>Honest failure disclosure builds more trust than polished results.</strong> The CORN verifier failed completely (PMF collapsed to constant mean). Documenting it clearly — including why it failed and what was learned — is more valuable than hiding it.</div></div>
+        <div class="lesson"><div class="lesson-n">05</div><div class="lesson-text"><strong>Sector-specific behavior matters more than aggregate metrics.</strong> The aggregate signal looked strong. But transports was inverted, defense was dominant, general industrials was the only sector with a clean monotone ladder. Production deployment requires sector-aware rules.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div"/>
+
+<!-- OTHER PROJECTS -->
+<div class="section fade-up">
+  <p class="sec-label">Research & professional work</p>
+  <h2 class="sec-title">Other projects</h2>
+  <div class="proj-grid">
+    <div class="proj-card">
+      <div class="pc-top"><div class="pc-icon">🧠</div><span class="pc-status">Vanderbilt HLAB · 2025–2026</span></div>
+      <div class="pc-title">Language Patterns in Trauma Communities — 918K Post Study</div>
+      <div class="pc-rows">
+        <div class="pc-row"><div class="pc-rl">Problem</div><div class="pc-rv">Can NLP identify clinically meaningful language differences between PTSD, cPTSD, and anxiety communities at population scale?</div></div>
+        <div class="pc-row"><div class="pc-rl">Method</div><div class="pc-rv">LDA topic modeling + Differential Language Analysis across 50K+ n-gram features on 918K Reddit posts (2020–2025)</div></div>
+        <div class="pc-row"><div class="pc-rl">Finding</div><div class="pc-rv">Identified statistically significant language markers distinguishing trauma conditions — supporting clinical NLP applications in mental health triage</div></div>
+      </div>
+      <div class="pc-tags"><span class="tag">Python</span><span class="tag">DLATK</span><span class="tag">LDA</span><span class="tag">NLP</span><span class="tag">Statistical Testing</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="pc-top"><div class="pc-icon">🚗</div><span class="pc-status">FusionSite Services · 2025</span></div>
+      <div class="pc-title">Unified Safety Intelligence Platform — 56 Sites, Zero Unified View</div>
+      <div class="pc-rows">
+        <div class="pc-row"><div class="pc-rl">Problem</div><div class="pc-rv">Safety events, HR records, and LMS training data lived in separate systems — regional leadership had no way to spot repeat-risk drivers before incidents escalated</div></div>
+        <div class="pc-row"><div class="pc-rl">Built</div><div class="pc-rv">Azure Function App ETL pipelines + PostgreSQL data warehouse ingesting 15K+ safety events across 56 sites; executive Power BI dashboards for headcount, turnover, and compliance</div></div>
+        <div class="pc-row"><div class="pc-rl">Outcome</div><div class="pc-rv">Leadership gained real-time visibility into repeat-risk patterns and workforce KPIs — eliminating manual reporting for a 250+ driver fleet</div></div>
+      </div>
+      <div class="pc-tags"><span class="tag">Azure</span><span class="tag">PostgreSQL</span><span class="tag">Power BI</span><span class="tag">Python</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="pc-top"><div class="pc-icon">🏦</div><span class="pc-status">Protiviti · 2024</span></div>
+      <div class="pc-title">AML & Financial Crime Investigation — 10,000+ Transactions Reviewed</div>
+      <div class="pc-rows">
+        <div class="pc-row"><div class="pc-rl">Context</div><div class="pc-rv">Embedded with Protiviti's financial crime team screening high-volume transaction activity for indicators of money laundering, fraud, and sanctions violations</div></div>
+        <div class="pc-row"><div class="pc-rl">Work</div><div class="pc-rv">50+ AML account investigations per week · 200+ risk narratives · 10K+ transactions reviewed for compliance indicators</div></div>
+        <div class="pc-row"><div class="pc-rl">Why it matters</div><div class="pc-rv">Built foundational understanding of financial data patterns, compliance logic, and risk narrative writing — directly applicable to fintech data roles</div></div>
+      </div>
+      <div class="pc-tags"><span class="tag">Risk Analysis</span><span class="tag">AML</span><span class="tag">KYC</span><span class="tag">Financial Crime</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="pc-top"><div class="pc-icon">📣</div><span class="pc-status">WaterFire Providence · 2023</span></div>
+      <div class="pc-title">Donor Intelligence & Campaign Revenue Analysis</div>
+      <div class="pc-rows">
+        <div class="pc-row"><div class="pc-rl">Problem</div><div class="pc-rv">3 years of campaign data, 8K+ donor records — but no systematic way to identify which campaigns drove real revenue or which donors were worth re-engaging</div></div>
+        <div class="pc-row"><div class="pc-rl">Built</div><div class="pc-rv">Campaign performance analysis in R and Tableau across 200+ campaigns; Python-based lapsed donor segmentation from 5 years of giving history</div></div>
+        <div class="pc-row"><div class="pc-rl">Outcome</div><div class="pc-rv">Identified top revenue-generating campaigns and surfaced a targeted lapsed-donor list for the next fundraiser; cleaned data infrastructure to prevent future redundancy</div></div>
+      </div>
+      <div class="pc-tags"><span class="tag">Python</span><span class="tag">R</span><span class="tag">Tableau</span><span class="tag">Donor Analytics</span></div>
+    </div>
+  </div>
+</div>
+
+<hr class="div"/>
+
+<!-- EXPERIENCE -->
+<div class="section fade-up" id="experience">
+  <p class="sec-label">Experience</p>
+  <h2 class="sec-title">Where I've built things.</h2>
+  <div class="exp-grid">
+
+    <div class="exp-card exp-featured">
+      <div class="exp-top">
+        <div><div class="exp-role">Data Engineer</div><div class="exp-co">FusionSite Services</div></div>
+        <div class="exp-date">2025</div>
+      </div>
+      <p class="exp-body">Built the data infrastructure that unified safety events, HR records, and training compliance across 56 operational sites — replacing manual reporting with automated Azure pipelines and executive-level Power BI dashboards.</p>
+      <div class="exp-stats">
+        <div class="exp-stat"><span class="exp-stat-n" data-target="15000">0</span><span class="exp-stat-l">Safety events processed</span></div>
+        <div class="exp-stat"><span class="exp-stat-n" data-target="56">0</span><span class="exp-stat-l">Sites unified</span></div>
+        <div class="exp-stat"><span class="exp-stat-n" data-target="250">0</span><span class="exp-stat-l">Drivers tracked</span></div>
+      </div>
+      <div class="exp-tags"><span class="tag">Azure</span><span class="tag">PostgreSQL</span><span class="tag">Power BI</span><span class="tag">Python</span></div>
+    </div>
+
+    <div class="exp-card exp-featured">
+      <div class="exp-top">
+        <div><div class="exp-role">NLP Research Assistant</div><div class="exp-co">HLAB · Vanderbilt</div></div>
+        <div class="exp-date">2025–26</div>
+      </div>
+      <p class="exp-body">Designed large-scale differential language analysis across trauma communities — building the NLP workflow infrastructure that directly informed the SEC filing project.</p>
+      <div class="exp-stats">
+        <div class="exp-stat"><span class="exp-stat-n" data-target="918000">0</span><span class="exp-stat-l">Posts analyzed</span></div>
+        <div class="exp-stat"><span class="exp-stat-n" data-target="50000">0</span><span class="exp-stat-l">N-gram features</span></div>
+        <div class="exp-stat"><span class="exp-stat-n" data-target="3">0</span><span class="exp-stat-l">Communities studied</span></div>
+      </div>
+      <div class="exp-tags"><span class="tag">DLATK</span><span class="tag">LDA</span><span class="tag">Python</span><span class="tag">NLP</span></div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-top">
+        <div><div class="exp-role">Risk Analyst</div><div class="exp-co">Protiviti</div></div>
+        <div class="exp-date">2024</div>
+      </div>
+      <p class="exp-body">AML investigations at volume — 50+ accounts weekly, 10,000+ transactions reviewed for money laundering, fraud, and sanctions violations.</p>
+      <div class="exp-tags"><span class="tag">AML</span><span class="tag">Risk Analysis</span><span class="tag">KYC</span></div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-top">
+        <div><div class="exp-role">Data Analyst</div><div class="exp-co">WaterFire Providence</div></div>
+        <div class="exp-date">2023</div>
+      </div>
+      <p class="exp-body">Campaign performance and donor segmentation across 3 years of fundraising history — surfaced top revenue generators and flagged lapsed donor segments.</p>
+      <div class="exp-tags"><span class="tag">Python</span><span class="tag">R</span><span class="tag">Tableau</span></div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="div"/>
+
+<!-- SKILLS -->
+<hr class="div"/>
+<div class="section fade-up">
+  <p class="sec-label">Capabilities</p>
+  <h2 class="sec-title">How I build.</h2>
+  <div class="cap-grid">
+
+    <div class="cap-card cap-primary">
+      <div class="cap-header">
+        <div class="cap-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="cap-title">AI Systems</div>
+      </div>
+      <div class="cap-desc">End-to-end LLM pipelines from data to deployed signal — fine-tuning, RL alignment, multi-agent orchestration.</div>
+      <div class="cap-items">
+        <div class="cap-item">LLM Fine-Tuning (QLoRA / SFT)</div>
+        <div class="cap-item">Reinforcement Learning (GRPO)</div>
+        <div class="cap-item">NLP at Scale</div>
+        <div class="cap-item">Multi-Agent Systems</div>
+        <div class="cap-item">Sentiment Classification</div>
+      </div>
+    </div>
+
+    <div class="cap-card cap-primary">
+      <div class="cap-header">
+        <div class="cap-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="cap-title">Financial Intelligence</div>
+      </div>
+      <div class="cap-desc">Signal extraction from unstructured financial data — backtested, pre-registered, validated out-of-sample.</div>
+      <div class="cap-items">
+        <div class="cap-item">SEC Filing Analysis</div>
+        <div class="cap-item">Factor Extraction</div>
+        <div class="cap-item">Quantitative Backtesting</div>
+        <div class="cap-item">Risk &amp; AML Analytics</div>
+        <div class="cap-item">Portfolio Signal Design</div>
+      </div>
+    </div>
+
+    <div class="cap-card cap-primary">
+      <div class="cap-header">
+        <div class="cap-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div class="cap-title">Data Infrastructure</div>
+      </div>
+      <div class="cap-desc">Production-grade pipelines that unify messy operational data and surface it where decisions happen.</div>
+      <div class="cap-items">
+        <div class="cap-item">Cloud Pipelines (Azure)</div>
+        <div class="cap-item">Data Warehousing</div>
+        <div class="cap-item">Executive Dashboards</div>
+        <div class="cap-item">ETL Automation</div>
+        <div class="cap-item">Snowflake · Databricks</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="cap-tools">
+    <span class="cap-tool-label">Stack —</span>
+    <span class="cap-tool">Python</span><span class="cap-tool">SQL</span><span class="cap-tool">PyTorch</span>
+    <span class="cap-tool">HuggingFace</span><span class="cap-tool">vLLM</span><span class="cap-tool">DeepSeek-R1</span>
+    <span class="cap-tool">R</span><span class="cap-tool">PySpark</span><span class="cap-tool">Power BI</span>
+    <span class="cap-tool">Tableau</span><span class="cap-tool">Git</span>
+  </div>
+</div>
+<!-- CONTACT -->
+<div id="contact-wrap">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <h2 class="contact-h">Let's work together.</h2>
+      <p class="contact-sub">Open to Data Scientist, Applied AI, Analytics, and AI Startup roles. Based in Nashville · Open to relocation.</p>
+    </div>
     <div class="contact-links">
-      <a href="maggietu570@gmail.com">you@email.com</a>
-      <a href="https://linkedin.com/in/maggie-tu" target="_blank">LinkedIn</a>
-      <a href="https://github.com/WanlinTu" target="_blank">GitHub</a>
+      <a href="mailto:maggietu570@gmail.com" class="cl"><div class="cl-icon">✉</div>maggietu570@gmail.com</a>
+      <a href="https://www.linkedin.com/in/maggie-tu/" target="_blank" class="cl"><div class="cl-icon" style="font-size:.65rem">in</div>linkedin.com/in/maggie-tu</a>
+      <a href="https://github.com/WanlinTu" target="_blank" class="cl"><div class="cl-icon" style="font-size:.65rem">gh</div>github.com/WanlinTu</a>
     </div>
-  </section>
+  </div>
+</div>
+<footer>© 2026 Maggie Tu · Nashville, TN</footer>
 
+<script>
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('s',scrollY>20));
+
+// Fade-up
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+},{threshold:.1});
+document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+
+// Flagship tabs
+document.querySelectorAll('.fl-tab').forEach(tab=>{
+  tab.addEventListener('click',function(){
+    document.querySelectorAll('.fl-tab').forEach(t=>t.classList.remove('a'));
+    document.querySelectorAll('.fl-panel').forEach(p=>p.classList.remove('a'));
+    this.classList.add('a');
+    document.getElementById('panel-'+this.dataset.panel).classList.add('a');
+    if(this.dataset.panel==='results') setTimeout(animateBars,80);
+  });
+});
+
+// Bar animation
+function animateBars(){
+  document.querySelectorAll('#results-bars .bar-fill').forEach(f=>{
+    f.style.width=f.dataset.pct+'%';
+  });
+}
+// Auto-animate when results tab is scrolled into view
+const projSection=document.getElementById('flagship');
+const bObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){setTimeout(animateBars,400);bObs.unobserve(e.target)}});
+},{threshold:.15});
+if(projSection) bObs.observe(projSection);
+
+
+  // ── COUNT-UP ANIMATION ──
+  function countUp(el, target, suffix) {
+    const duration = 1400;
+    const start = performance.now();
+    const fmt = (n) => {
+      if (target >= 100000) return Math.round(n/1000) + 'K+';
+      if (target >= 1000) return Math.round(n/1000).toLocaleString() + 'K+';
+      return Math.round(n).toString() + (suffix||'');
+    };
+    function step(ts) {
+      const elapsed = ts - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = fmt(target * ease);
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = fmt(target);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Trigger count-up when exp cards enter view
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('[data-target]').forEach(el => {
+          const target = parseInt(el.dataset.target);
+          countUp(el, target, el.dataset.suffix || '');
+        });
+        countObserver.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.4});
+  document.querySelectorAll('.exp-card').forEach(c => countObserver.observe(c));
+
+  // ── HERO STAT COUNT-UP ──
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        // Animate hero stats
+        const heroStats = [
+          {el: document.querySelector('.hstat:nth-child(1) .hstat-n'), target: 2.02, decimals: true},
+          {el: document.querySelector('.hstat:nth-child(2) .hstat-n'), target: 191, suffix: '%'},
+          {el: document.querySelector('.hstat:nth-child(3) .hstat-n'), target: 2441, suffix: ''},
+          {el: document.querySelector('.hstat:nth-child(4) .hstat-n'), target: 918, suffix: 'K+'},
+        ];
+        heroStats.forEach(({el, target, suffix, decimals}) => {
+          if (!el) return;
+          const duration = 1600;
+          const start = performance.now();
+          function step(ts) {
+            const p = Math.min((ts - start)/duration, 1);
+            const ease = 1 - Math.pow(1-p, 3);
+            if (decimals) el.textContent = (target * ease).toFixed(2);
+            else el.textContent = Math.round(target * ease) + (suffix||'');
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = decimals ? target.toFixed(2) : target + (suffix||'');
+          }
+          requestAnimationFrame(step);
+        });
+        heroObserver.disconnect();
+      }
+    });
+  }, {threshold: 0.3});
+  const heroStatRow = document.querySelector('.hero-stat-row');
+  if (heroStatRow) heroObserver.observe(heroStatRow);
+
+  // ── STAGGER FADE for exp cards ──
+  document.querySelectorAll('.exp-card').forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.07) + 's';
+  });
+  document.querySelectorAll('.cap-card').forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.07) + 's';
+  });
+
+  // ── BAR CHART: also animate when results tab opened ──
+  // (already handled by existing tab switch code, just ensure shimmer works)
+
+
+  // ── METRICS BAND count-up ──
+  const metricObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll('.mstat-n').forEach(el => {
+        const text = el.textContent.trim();
+        // Parse number from text
+        if (text === '2.02') {
+          let start = performance.now();
+          const dur = 1200;
+          (function step(ts) {
+            const p = Math.min((ts-start)/dur, 1);
+            const ease = 1 - Math.pow(1-p, 3);
+            el.textContent = (2.02 * ease).toFixed(2);
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = '2.02';
+          })(start);
+        } else if (text === '67K+') {
+          let start = performance.now();
+          const dur = 1000;
+          (function step(ts) {
+            const p = Math.min((ts-start)/dur, 1);
+            const ease = 1 - Math.pow(1-p, 3);
+            el.textContent = Math.round(67 * ease) + 'K+';
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = '67K+';
+          })(start);
+        } else if (text === '+191%') {
+          let start = performance.now();
+          const dur = 1100;
+          (function step(ts) {
+            const p = Math.min((ts-start)/dur, 1);
+            const ease = 1 - Math.pow(1-p, 3);
+            el.textContent = '+' + Math.round(191 * ease) + '%';
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = '+191%';
+          })(start);
+        }
+      });
+      metricObserver.unobserve(e.target);
+    });
+  }, {threshold: 0.5});
+  const metricsBand = document.querySelector('.metrics-band');
+  if (metricsBand) metricObserver.observe(metricsBand);
+
+  // ── RE-TRIGGER hp-pipeline animation on scroll ──
+  // Nodes already animate via CSS animation-delay on load
+  // If needed, reset for scroll-triggered:
+  const pipelineObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.hp-node, .hp-connector').forEach(el => {
+          el.style.animationPlayState = 'running';
+        });
+      }
+    });
+  }, {threshold: 0.2});
+  const pipeline = document.getElementById('hp-pipeline');
+  if (pipeline) pipelineObs.observe(pipeline);
+</script>
 </body>
 </html>
