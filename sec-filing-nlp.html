@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="description" content="SEC Filing NLP case study by Maggie Tu.">
+ <title>SEC Filing NLP Case Study | Maggie Tu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <nav class="site-nav" aria-label="Primary navigation">
+ <a class="nav-logo" href="index.html">Maggie Tu</a>
+  <div class="nav-links">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#experience">Experience</a>
+  <a href="index.html#skills">Skills</a>
+  <a href="index.html#contact">Contact</a>
+ <a class="nav-button" href="Maggie_Tu_Resume.pdf">Resume</a>
+  </div>
+  </nav>
+
+ <header class="case-hero section">
+  <p class="eyebrow">Flagship AI / Finance Project</p>
+    <h1>SEC Filing NLP</h1>
+ <p class="case-intro">A research project on whether the language inside annual filings can be structured, scored, and tested in a disciplined way. The goal was not to claim a magic market signal. It was to build a careful pipeline and understand where the signal was useful, noisy, or fragile.</p>
+  <div class="case-meta">
+ <span>Python</span>
+  <span>NLP</span>
+ <span>Factor extraction</span>
+   <span>Sentiment scoring</span>
+  <span>Backtesting</span>
+   </div>
+ </header>
+
+ <main class="case-main">
+ <section class="case-section">
+   <div class="case-heading">
+        <p class="eyebrow">Architecture</p>
+  <h2>From raw filings to testable features.</h2>
+      </div>
+ <div class="architecture-grid">
+   <div class="arch-step">
+  <span>01</span>
+ <h3>Ingest</h3>
+        <p>Collect filing text and metadata, then normalize document structure so sections can be compared across companies.</p>
+  </div>
+  <div class="arch-step">
+ <span>02</span>
+  <h3>Parse</h3>
+  <p>Separate dense filing text into meaningful sections and remove boilerplate where it weakens the analysis.</p>
+       </div>
+   <div class="arch-step">
+  <span>03</span>
+   <h3>Extract</h3>
+  <p>Pull language features around risk, uncertainty, growth, competition, regulation, and operational pressure.</p>
+  </div>
+  <div class="arch-step">
+ <span>04</span>
+  <h3>Evaluate</h3>
+       <p>Compare language-derived features against simple baselines and check whether apparent patterns survive out-of-sample tests.</p>
+  </div>
+    </div>
+ </section>
+
+  <section class="case-section two-col">
+ <div>
+  <p class="eyebrow">Factor extraction</p>
+        <h2>Making filings easier to compare.</h2>
+ </div>
+  <div class="case-copy">
+  <p>The extraction layer grouped filing language into interpretable factor families: liquidity, regulatory exposure, demand uncertainty, cost pressure, competitive risk, and management tone. I cared less about producing a single clever score and more about building features that could be inspected.</p>
+  <p>That inspection step mattered. Some phrases were genuinely informative; others were standard legal language. The pipeline had to make room for both quantitative scoring and human review.</p>
+      </div>
+   </section>
+
+ <section class="case-section two-col">
+ <div>
+ <p class="eyebrow">Sentiment scoring</p>
+     <h2>Tone is useful only when it is grounded.</h2>
+      </div>
+      <div class="case-copy">
+        <p>I treated sentiment as one lens rather than the final answer. The scoring layer looked at negative, positive, and uncertainty-oriented language, then compared those signals by section and factor type.</p>
+ <p>The most useful patterns came from shifts in specific language, not broad labels like positive or negative. A filing can sound cautious for good reasons, and a confident filing can still hide risk.</p>
+      </div>
+    </section>
+
+ <section class="case-section two-col">
+   <div>
+ <p class="eyebrow">RL alignment</p>
+ <h2>Rewarding signals that behaved sensibly.</h2>
+ </div>
+ <div class="case-copy">
+   <p>The alignment layer was designed to discourage the model from chasing noisy patterns. Reward ideas included consistency across related sections, interpretability of extracted factors, and performance that did not collapse outside the training window.</p>
+ <p>This part of the project was useful because it forced a sharper question: is the model learning filing language, or is it learning accidental quirks in the sample?</p>
+ </div>
+ </section>
+
+  <section class="case-section">
+  <div class="case-heading">
+        <p class="eyebrow">Backtest results</p>
+   <h2>Promising, but handled with caution.</h2>
+   </div>
+  <div class="result-grid">
+        <div class="result-card positive">
+ <span>Signal lift</span>
+   <strong>Positive</strong>
+  <p>Language features added useful separation compared with a plain baseline in the tested setup.</p>
+        </div>
+ <div class="result-card">
+ <span>Best use</span>
+  <strong>Research filter</strong>
+  <p>The signals were most useful for ranking and comparison, not as a stand-alone trading system.</p>
+ </div>
+  <div class="result-card">
+   <span>Main caveat</span>
+   <strong>Overfitting risk</strong>
+  <p>Small changes in assumptions could change results, so evaluation discipline mattered more than a headline number.</p>
+ </div>
+      </div>
+    </section>
+
+    <section class="case-section two-col">
+  <div>
+   <p class="eyebrow">Key findings</p>
+ <h2>What the project taught me.</h2>
+ </div>
+  <div class="case-list">
+  <p><strong>Specificity beats volume.</strong> More text did not automatically mean better signal. The most useful features were tied to interpretable sections and factor families.</p>
+ <p><strong>Uncertainty language needs context.</strong> Caution can be a risk signal, but it can also reflect responsible disclosure.</p>
+  <p><strong>Finance models need humility.</strong> A backtest is a research tool, not a guarantee. The strongest work was in making assumptions visible.</p>
+ </div>
+ </section>
+
+ <section class="case-section two-col">
+ <div>
+   <p class="eyebrow">Lessons learned</p>
+        <h2>The hard part was not the model.</h2>
+  </div>
+ <div class="case-copy">
+ <p>The hard part was deciding what counted as evidence. I learned to pay close attention to baselines, leakage, filing boilerplate, and the difference between an interesting pattern and a reliable one.</p>
+ <p>That lesson carries into the rest of my portfolio: good data science is not just building something complex. It is knowing what the work can and cannot say.</p>
+  </div>
+  </section>
+
+  <section class="case-section case-cta">
+    <h2>Back to the broader portfolio.</h2>
+ <p>The SEC project is the flagship, but Maggie's work also spans mental health NLP research, analytics platforms, data engineering, and risk analysis.</p>
+  <a class="button primary" href="index.html#work">Return to selected work</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+ <p>Maggie Tu</p>
+  <p>SEC Filing NLP case study</p>
+  </footer>
+
+ <script>
+ const nav = document.querySelector('.site-nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
+    onScroll();
+ window.addEventListener('scroll', onScroll, { passive: true });
+ </script>
+</body>
+</html>
